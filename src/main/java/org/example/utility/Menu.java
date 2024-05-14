@@ -67,10 +67,10 @@ public class Menu {
         StudentService studentService = ApplicationContext.getStudentService();
         while (true) {
 
-            System.out.println("Please enter your username: ");
+            System.out.println("کد ملی: ");
             String nationalCode = scanner.nextLine();
 
-            System.out.println("Please enter your password: ");
+            System.out.println("رمز عبور: ");
             String password = scanner.nextLine();
 
 
@@ -79,10 +79,10 @@ public class Menu {
             if (student != null && student.getPassword().equals(password)) {
                 return student.getId();
             } else if (student == null) {
-                System.out.println("User does not exist");
+                System.out.println("کاربر با این کد ملی یافت نشد");
 
             } else if (!password.equals(student.getPassword())) {
-                System.out.println(("Incorrect password."));
+                System.out.println(("رمز عبور اشتباه است."));
             }
         }
     }

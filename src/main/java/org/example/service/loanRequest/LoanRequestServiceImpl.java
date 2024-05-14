@@ -145,7 +145,7 @@ public class LoanRequestServiceImpl extends BaseServiceImpl<LoanRequest, Long, L
                     , loanRequest.getStudent().getUniversity().getCity().getCityType());
         }else if (loanRequest.getLoanType().getId() == 1 ) {
             if (loanRequest.getStudent().getUniversity().getUniversityType().equals(UniversityType.دولتی_روزانه)){
-                validationMessage= "شما در دانشگاه  دولتی در حال تحصیل میباشید و امکان دریافت این وام وحود ندارد";
+                validationMessage= "شما در دانشگاه  دولتی در حال تحصیل میباشید و امکان دریافت این وام وجود ندارد";
 
             }
             loanLimit = loanLimitRepository.findByLoanTypeAndEducationGrade(loanRequest.getLoanType().getId()
@@ -159,7 +159,7 @@ public class LoanRequestServiceImpl extends BaseServiceImpl<LoanRequest, Long, L
             if (loanLimit != null && loanRequest.getLoanAmount() > loanLimit.getLoanAmount()) {
                 validationMessage = "مبلغ درخواستی بیشتر از سقف تسهیلات می باشد.";
             } else if (loanLimit == null) {
-                validationMessage = "Loan limit not found";
+                validationMessage = "وام درخواستی پیدا نشد";
             }
             return validationMessage;
         }
