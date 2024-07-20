@@ -41,6 +41,7 @@ public abstract class BaseRepositoryImpl<T extends BaseEntity<ID>, ID extends Se
         session.remove(entity);
     }
 
+
     public abstract Class<T> getEntityClass();
 
 }

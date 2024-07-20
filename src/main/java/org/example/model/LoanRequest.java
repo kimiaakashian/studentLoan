@@ -6,7 +6,6 @@ import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import org.example.base.entity.BaseEntity;
 
-import java.time.LocalDate;
 
 
 @Entity

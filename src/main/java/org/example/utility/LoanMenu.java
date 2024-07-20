@@ -6,6 +6,8 @@ import org.example.service.loanInstallment.LoanInstallmentService;
 import org.example.service.loanRequest.LoanRequestService;
 import org.example.service.loanType.LoanTypeService;
 import org.example.service.student.StudentService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
 import java.util.Scanner;
@@ -16,13 +18,16 @@ public class LoanMenu {
     StudentService studentService = ApplicationContext.getStudentService();
     LoanRequestService loanRequestService = ApplicationContext.getLoanRequestService();
     LoanInstallmentService loanInstallmentService = ApplicationContext.getLoanInstallmentService();
+    static Logger logger = LoggerFactory.getLogger(Menu.class);
+
+
 
     public void loanRequest(long studentId) {
         boolean isGraduate = studentService.IsGraduated(studentId);
         if (isGraduate) {
-            System.out.println("شما فارق التحصیل شده اید و قادر به دریافت وام نمیباشید");
+            logger.error("شما فارق التحصیل شده اید و قادر به دریافت وام نمیباشید");
         } else if (!isAllowedTimeToRegisterLoan()) {
-            System.out.println("بازه زمانی غیر مجاز است");
+            logger.error("بازه زمانی غیر مجاز است");
         } else {
             System.out.println("کد وام را وارد کنید ");
             displayAllLoanTypes();
@@ -34,7 +39,7 @@ public class LoanMenu {
             LoanRequest loanRequest = new LoanRequest(student, loanType, loanAmount, DateConvertorNew.todayDate());
             String message = loanRequestService.saveLoanWithInstallments(loanRequest);
             if (message.equalsIgnoreCase("OK"))
-                System.out.println("درخواست وام شما با موفقیت ثبت گردید.");
+                logger.info("درخواست وام شما با موفقیت ثبت گردید.");
             else
                 System.out.println(message);
         }

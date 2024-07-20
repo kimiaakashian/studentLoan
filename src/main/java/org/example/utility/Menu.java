@@ -8,6 +8,8 @@ import org.example.model.date.DateConvertorNew;
 import org.example.service.bankAccount.BankAccountService;
 import org.example.service.loanInstallment.LoanInstallmentService;
 import org.example.service.student.StudentService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Scanner;
 
@@ -18,6 +20,8 @@ public class Menu {
     BankAccountService bankAccountService = ApplicationContext.getBankAccountService();
     LoanInstallmentService loanInstallmentService = ApplicationContext.getLoanInstallmentService();
     StudentService studentService = ApplicationContext.getStudentService();
+   static Logger logger = LoggerFactory.getLogger(Menu.class);
+
 
     public void mainMenu() {
         int number = 0;
@@ -79,10 +83,10 @@ public class Menu {
             if (student != null && student.getPassword().equals(password)) {
                 return student.getId();
             } else if (student == null) {
-                System.out.println("کاربر با این کد ملی یافت نشد");
+              logger.error ("کاربر با این کد ملی یافت نشد");
 
             } else if (!password.equals(student.getPassword())) {
-                System.out.println(("رمز عبور اشتباه است."));
+                logger.error(("رمز عبور اشتباه است."));
             }
         }
     }
@@ -112,7 +116,7 @@ public class Menu {
                 String expireDate = scanner.nextLine();
 
                 if (!bankAccountService.isValidExpirationDate(expireDate)) {
-                    System.out.println("کارت منقضی شده است");
+                    logger.error("کارت منقضی شده است");
 
                 } else {
                     BankAccount bankAccount = bankAccountService.findByAccountNumber(accountNumber);
